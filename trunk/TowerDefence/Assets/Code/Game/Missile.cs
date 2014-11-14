@@ -11,7 +11,7 @@ public class Missile : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		if(isThrowing != null)MovePosition();
+		if(isThrowing)MovePosition();
 	}
 
 
@@ -20,13 +20,17 @@ public class Missile : MonoBehaviour
 	{
 		mTarget = Target;
 		isThrowing = true;
+		ThrowingStartTime = Time.time;
 	}
 
 
 
 	private void MovePosition()
 	{
-		transform.position = Vector3.Slerp(transform.position, mTarget.transform.position, ThrowingTime);
+		float TargetRatio = (Time.time - ThrowingStartTime) / ThrowingTime;
+
+		transform.LookAt(mTarget);
+		transform.position = Vector3.Lerp(transform.position, mTarget.transform.position, TargetRatio);
 	}
 
 
@@ -36,4 +40,6 @@ public class Missile : MonoBehaviour
 	public Transform mTarget;
 
 	private bool isThrowing = false;
+
+	private float ThrowingStartTime = 0.0f;
 }

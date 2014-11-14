@@ -109,7 +109,7 @@ public class Tower : MonoBehaviour
 
 			GameObject missile = GetMissile();
 			missile.transform.parent = transform;
-			missile.transform.localPosition = ShootObject.transform.position;
+			missile.transform.localPosition = ShootObject.transform.localPosition;
 		}
 	}
 
