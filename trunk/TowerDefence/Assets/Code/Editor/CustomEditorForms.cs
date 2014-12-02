@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CustomEditorForms
 {
@@ -13,6 +14,15 @@ public class CustomEditorForms
 		}
 		EditorGUILayout.EndHorizontal();
 
+		return Value;
+	}
+
+
+
+
+	public static bool CheckBoxForm(string Name, bool Value, float Widht)
+	{
+		Value = EditorGUILayout.ToggleLeft(Name, Value, GUILayout.Width(Widht));
 		return Value;
 	}
 
