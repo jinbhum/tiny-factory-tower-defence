@@ -14,9 +14,12 @@ public class Missile : MonoBehaviour
 		if(isThrowing)MovePosition();
 	}
 
-	void OnDestroy()
+
+
+	public void Destroy()
 	{
 		isThrowing = false;
+		GameObject.Destroy(gameObject);
 	}
 
 
