@@ -35,10 +35,18 @@ public class Missile : MonoBehaviour
 
 	private void MovePosition()
 	{
-		float TargetRatio = (Time.time - ThrowingStartTime) / ThrowingTime;
-
-		transform.LookAt(mTarget);
-		transform.position = Vector3.Lerp(transform.position, mTarget.transform.position, TargetRatio);
+		if(mTarget == null)
+		{
+			transform.parent.SendMessage("MissingTarget", SendMessageOptions.DontRequireReceiver);
+			Destroy();
+		}
+		else
+		{
+			float TargetRatio = (Time.time - ThrowingStartTime) / ThrowingTime;
+			
+			transform.LookAt(mTarget);
+			transform.position = Vector3.Lerp(transform.position, mTarget.transform.position, TargetRatio);
+		}
 	}
 
 
