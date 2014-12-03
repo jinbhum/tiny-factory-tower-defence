@@ -18,7 +18,7 @@ public class Monster : MonoBehaviour {
         if (obj.GetComponent<Missile>() != null)
         {
             MonsterHP = MonsterHP - obj.GetComponent<Missile>().Damege;
-            obj.transform.parent.SendMessage("Destroy", GetComponent<BoxCollider>(), SendMessageOptions.DontRequireReceiver);
+            obj.transform.SendMessage("Destroy", SendMessageOptions.DontRequireReceiver);
         }
         else
         {
