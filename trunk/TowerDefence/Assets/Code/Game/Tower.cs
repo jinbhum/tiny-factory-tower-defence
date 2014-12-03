@@ -38,6 +38,15 @@ public class Tower : MonoBehaviour
 	{
 		Debug.Log("CallUI");
 	}
+
+
+
+	public void MissingTarget()
+	{
+		StopAttack();
+		SetNextTarget();
+		StartAttack();
+	}
 	
 	
 	
