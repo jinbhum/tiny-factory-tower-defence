@@ -9,4 +9,12 @@ public class CustomMenu : MonoBehaviour
 	{
 		EditorWindow.GetWindow(typeof(CustomMapTileWindow), true, "TileWizard");
 	}
+
+
+
+	[MenuItem ("Custom/TowerWizard")]
+	static void TowerCreate()
+	{
+		EditorWindow.GetWindow(typeof(CustomTowerWindow), true, "TowerWizard");
+	}
 }
