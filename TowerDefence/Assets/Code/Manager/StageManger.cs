@@ -8,6 +8,7 @@ public class StageManger : MonoBehaviour
 	void Start () 
 	{
 		G.i.StageM = GetComponent<StageManger>();
+        GameStart();
 	}
 
 
@@ -20,7 +21,7 @@ public class StageManger : MonoBehaviour
 
 	public void GameStart()
 	{
-
+        StartCoroutine(CreateMonster(MonsterObj));
 	}
 
 
@@ -89,13 +90,33 @@ public class StageManger : MonoBehaviour
 	{
 		get{ return mUsedTileMap;}
 	}
-	
+
+    private IEnumerator CreateMonster(GameObject monster)
+    {
+        MonsterCount = 6;
+        MonsterPos = monster.transform;
+        MonsterstartPos = new Vector3(-60, 0, 35);
+
+        for (int i = 0; i <= MonsterCount; i++)
+        {
+            GameObject obj;
+            obj = Instantiate(monster, MonsterstartPos, Quaternion.identity) as GameObject;
+            obj.SetActive(true);
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
 
 
-	public Transform CurTarget = null;
+    public Transform CurTarget = null;
 	public Transform TowerParent = null;
 
 	public BlockState BlockState = null;
+
+    public GameObject MonsterObj = null;
+    public Transform MonsterPos;
+    public int MonsterCount;
+
+    private Vector3 MonsterstartPos;
 
 	private Dictionary<string, Transform> mUsedTileMap = new Dictionary<string, Transform>();
 }
