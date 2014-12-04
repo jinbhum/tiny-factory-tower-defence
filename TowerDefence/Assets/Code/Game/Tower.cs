@@ -151,7 +151,6 @@ public class Tower : MonoBehaviour
 	public GameObject ShootObject = null;
 
 	public float ShootDelay = 0.0f;
-	public float ShootPower = 0.0f;
 
 	private Transform mUsedTile = null;
 
