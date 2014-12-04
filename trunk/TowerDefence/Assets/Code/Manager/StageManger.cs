@@ -8,7 +8,6 @@ public class StageManger : MonoBehaviour
 	void Start () 
 	{
 		G.i.StageM = GetComponent<StageManger>();
-        GameStart();
 	}
 
 
@@ -21,7 +20,7 @@ public class StageManger : MonoBehaviour
 
 	public void GameStart()
 	{
-        StartCoroutine(CreateMonster(MonsterObj));
+        //StartCoroutine(CreateMonster(MonsterObj));
 	}
 
 
@@ -91,7 +90,16 @@ public class StageManger : MonoBehaviour
 		get{ return mUsedTileMap;}
 	}
 
-    private IEnumerator CreateMonster(GameObject monster)
+
+    public void CreateMonster(GameObject monster)
+    {
+        if (monster != null)
+        {
+            StartCoroutine(IECreateMonster(monster));
+        }
+    }
+
+    private IEnumerator IECreateMonster(GameObject monster)
     {
         MonsterCount = 6;
         MonsterPos = monster.transform;
