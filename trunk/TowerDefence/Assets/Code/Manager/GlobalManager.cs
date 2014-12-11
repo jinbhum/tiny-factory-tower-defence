@@ -20,6 +20,19 @@ public class GlobalManager : MonoBehaviour
 	private PlayerInfo _mPlayerInfo = null;
 	private StageManger _mStageM = null;
 	private InputController _mIController = null;
+
+
+
+	// event
+
+	public void StageSetting()
+	{
+		if(_mStageSetting != null)_mStageSetting();
+	}
+
+
+	public delegate void VoidFuntion();
+	public event VoidFuntion _mStageSetting;
 }
 
 

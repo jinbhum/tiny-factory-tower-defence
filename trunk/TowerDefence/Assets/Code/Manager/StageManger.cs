@@ -8,6 +8,7 @@ public class StageManger : MonoBehaviour
 	void Start () 
 	{
 		G.i.StageM = GetComponent<StageManger>();
+		G.i.StageSetting();
 	}
 
 
@@ -18,9 +19,26 @@ public class StageManger : MonoBehaviour
 
 
 
-	public void GameEnd()
+	public void AddGameClearEvent(VoidFuntion ev){	evGameClear += ev;	}
+	public void RemoveGameClaerEvent(VoidFuntion ev){	evGameClear -= ev;	}
+
+	public void AddGameOverEvent(VoidFuntion ev){	evGameOver += ev;	}
+	public void RemoveGameOverEvent(VoidFuntion ev){	evGameOver -= ev;	}
+
+
+
+	public void GameClear()
 	{
-		Debug.Log("GameEnd");
+		Debug.Log("GameClear");
+		if(evGameClear != null)evGameClear();
+	}
+
+
+
+	public void GameOver()
+	{
+		Debug.Log("GameOver");
+		if(evGameOver != null)evGameOver();
 	}
 
 
@@ -120,5 +138,11 @@ public class StageManger : MonoBehaviour
     private Vector3 MonsterstartPos;
 
 	private Dictionary<string, Transform> mUsedTileMap = new Dictionary<string, Transform>();
+
+
+	// event
+	public delegate void VoidFuntion();
+	public event VoidFuntion evGameClear;
+	public event VoidFuntion evGameOver;
 }
 
