@@ -3,6 +3,13 @@ using System.Collections;
 
 public class GlobalManager : MonoBehaviour 
 {
+	public PlayerInfo PInfo
+	{
+		set { _mPlayerInfo = value; }
+		get { return _mPlayerInfo; }
+	}
+
+	
 	public StageManger StageM
 	{
 		set { _mStageM = value; }
@@ -10,6 +17,7 @@ public class GlobalManager : MonoBehaviour
 	}
 
 
+	private PlayerInfo _mPlayerInfo = null;
 	private StageManger _mStageM = null;
 	private InputController _mIController = null;
 }

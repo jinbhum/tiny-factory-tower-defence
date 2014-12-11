@@ -18,16 +18,9 @@ public class StageManger : MonoBehaviour
 
 
 
-	public void GameStart()
-	{
-        //StartCoroutine(CreateMonster(MonsterObj));
-	}
-
-
-
 	public void GameEnd()
 	{
-
+		Debug.Log("GameEnd");
 	}
 
 
