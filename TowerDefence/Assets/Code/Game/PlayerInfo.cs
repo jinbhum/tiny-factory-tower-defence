@@ -10,6 +10,8 @@ public class PlayerInfo : MonoBehaviour
 		G.i.PInfo = GetComponent<PlayerInfo>();
 	}
 
+
+
 	void Destory()
 	{
 		G.i.PInfo = null;
@@ -21,7 +23,7 @@ public class PlayerInfo : MonoBehaviour
 	{
 		PlayerLife -= SubValue;
 
-		if(PlayerLife < 0) G.i.StageM.GameEnd();
+		if(PlayerLife < 0) G.i.StageM.GameOver();
 	}
 
 
