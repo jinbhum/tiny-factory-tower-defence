@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TempUIController : MonoBehaviour 
 {
-	void Start()
+	void Awake()
 	{
 		G.i._mStageSetting += StageSetting;
 	}
@@ -156,6 +156,7 @@ public class TempUIController : MonoBehaviour
     private void GameStart()
     {
 		curState = ButtonState.GAME;
+		G.i.StageM.GameInit();
         G.i.StageM.CreateMonster(Monster);
     }
 
@@ -163,6 +164,7 @@ public class TempUIController : MonoBehaviour
 
 	private void GameContinue()
 	{
+		G.i.StageM.GameInit();
 		GameStart();
 	}
 

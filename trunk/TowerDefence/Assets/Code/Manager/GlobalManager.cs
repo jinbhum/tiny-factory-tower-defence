@@ -24,7 +24,6 @@ public class GlobalManager : MonoBehaviour
 
 
 	// event
-
 	public void StageSetting()
 	{
 		if(_mStageSetting != null)_mStageSetting();

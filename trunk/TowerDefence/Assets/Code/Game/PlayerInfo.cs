@@ -3,6 +3,11 @@ using System.Collections;
 
 public class PlayerInfo : MonoBehaviour 
 {
+	void Awake()
+	{
+		G.i._mStageSetting += StageSetting;
+	}
+
 
 	// Use this for initialization
 	void Start () 
@@ -15,17 +20,40 @@ public class PlayerInfo : MonoBehaviour
 	void Destory()
 	{
 		G.i.PInfo = null;
+
+		if(G.i.StageM != null)
+		{
+			G.i.StageM.RemoveGameInitEvent(GameInit);
+		}
+	}
+
+
+
+	public void StageSetting()
+	{
+		if(G.i.StageM != null)
+		{
+			G.i.StageM.AddGameInitEvent(GameInit);
+		}
+	}
+
+
+
+	public void GameInit()
+	{
+		_mLife = PlayerLife;
 	}
 
 
 
 	public void SubtractionLife(int SubValue)
 	{
-		PlayerLife -= SubValue;
+		_mLife -= SubValue;
 
-		if(PlayerLife < 0) G.i.StageM.GameOver();
+		if(_mLife < 0) G.i.StageM.GameOver();
 	}
 
 
 	public int PlayerLife = 0;
+	private int _mLife = 0; 
 }
