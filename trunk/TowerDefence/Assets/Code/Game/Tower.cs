@@ -24,7 +24,7 @@ public class Tower : MonoBehaviour
 
 
 
-	void Destroy()
+	void OnDestroy()
 	{
 		UsedTile = null;
 
