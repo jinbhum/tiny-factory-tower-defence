@@ -9,6 +9,7 @@ public class StageManger : MonoBehaviour
 	{
 		G.i.StageM = GetComponent<StageManger>();
 		G.i.StageSetting();
+        AddGameOverEvent(StopCreateMonster);
 	}
 
 
@@ -16,7 +17,6 @@ public class StageManger : MonoBehaviour
 	{
 		G.i.StageM = null;
 	}
-
 
 
 	public void AddGameClearEvent(VoidFuntion ev){	evGameClear += ev;	}
@@ -49,10 +49,9 @@ public class StageManger : MonoBehaviour
 	public void GameOver()
 	{
 		Debug.Log("GameOver");
-		if(evGameOver != null)evGameOver();
+        if (evGameOver != null) evGameOver();
+
 	}
-
-
 
 	public void CreateTower(GameObject tower)
 	{
@@ -61,8 +60,6 @@ public class StageManger : MonoBehaviour
 			StartCoroutine(IECreateTower(tower));
 		}
 	}
-
-
 
 	private IEnumerator IECreateTower(GameObject tower)
 	{
@@ -117,13 +114,18 @@ public class StageManger : MonoBehaviour
     {
         if (monster != null)
         {
-            StartCoroutine(IECreateMonster(monster));
+            StartCoroutine("IECreateMonster", monster);
         }
     }
 
+    public void StopCreateMonster()
+    {
+        StopCoroutine("IECreateMonster");
+    }
+
+
     private IEnumerator IECreateMonster(GameObject monster)
     {
-        MonsterCount = 6;
         MonsterPos = monster.transform;
         MonsterstartPos = new Vector3(-60, 0, 35);
 
@@ -132,6 +134,7 @@ public class StageManger : MonoBehaviour
             GameObject obj;
             obj = Instantiate(monster, MonsterstartPos, Quaternion.identity) as GameObject;
             obj.SetActive(true);
+            monsterList.Add(obj);
             yield return new WaitForSeconds(2.0f);
         }
     }
@@ -149,6 +152,8 @@ public class StageManger : MonoBehaviour
     private Vector3 MonsterstartPos;
 
 	private Dictionary<string, Transform> mUsedTileMap = new Dictionary<string, Transform>();
+
+    public List<GameObject> monsterList = new List<GameObject>();
 
 
 	// event
