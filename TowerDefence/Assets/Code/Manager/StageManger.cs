@@ -25,6 +25,17 @@ public class StageManger : MonoBehaviour
 	public void AddGameOverEvent(VoidFuntion ev){	evGameOver += ev;	}
 	public void RemoveGameOverEvent(VoidFuntion ev){	evGameOver -= ev;	}
 
+	public void AddGameInitEvent(VoidFuntion ev){	evGameInit += ev;	}
+	public void RemoveGameInitEvent(VoidFuntion ev){	evGameInit -= ev;	}
+
+
+
+	public void GameInit()
+	{
+		Debug.Log("GameInit");
+		if(evGameInit != null)evGameInit();
+	}
+
 
 
 	public void GameClear()
@@ -144,5 +155,6 @@ public class StageManger : MonoBehaviour
 	public delegate void VoidFuntion();
 	public event VoidFuntion evGameClear;
 	public event VoidFuntion evGameOver;
+	public event VoidFuntion evGameInit;
 }
 
