@@ -10,7 +10,7 @@ public class Goal : MonoBehaviour
 
 		if(collider.transform.GetComponent<Monster>() != null)
 		{
-			G.i.PInfo.SubtractionLife(100);
+            collider.GetComponent<Monster>().MonsterEnd();
 		}
 	}
 }

@@ -5,7 +5,7 @@ public class Monster : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	    
+
 	}
 	
 	// Update is called once per frame
@@ -24,6 +24,12 @@ public class Monster : MonoBehaviour {
         {
         }
 
+        //if (obj.GetComponent<Goal>() != null)
+        //{
+        //    MonsterEnd();
+        //}
+
+
         if (MonsterHP <= 0)
         {
             obj.transform.parent.SendMessage("ChangeTarget", GetComponent<CapsuleCollider>(), SendMessageOptions.DontRequireReceiver );
@@ -31,5 +37,13 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    public void MonsterEnd()
+    {
+        G.i.PInfo.SubtractionLife(100);
+        Destroy(this.gameObject);
+    }
+
+
     public int MonsterHP;
+    public int MonsterDamage;
 }
