@@ -8,7 +8,12 @@ public class Tower : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-
+		if(G.i.StageM != null)
+		{
+			G.i.StageM.AddGameInitEvent(GameInit);
+			G.i.StageM.AddGameClearEvent(GameEnd);
+			G.i.StageM.AddGameOverEvent(GameEnd);
+		}
 	}
 
 
@@ -22,6 +27,13 @@ public class Tower : MonoBehaviour
 	void Destroy()
 	{
 		UsedTile = null;
+
+		if(G.i.StageM != null)
+		{
+			G.i.StageM.RemoveGameInitEvent(GameInit);
+			G.i.StageM.RemoveGameClaerEvent(GameEnd);
+			G.i.StageM.RemoveGameOverEvent(GameEnd);
+		}
 	}
 
 
@@ -64,12 +76,15 @@ public class Tower : MonoBehaviour
 
 	public void TriggerEnter(Collider collider)
 	{
-		mEnemyList.Add(collider.transform);
-		
-		if(mEnemyList.Count == 1)
+		if(!isGameEnd)
 		{
-			SetNextTarget();
-			StartAttack();
+			mEnemyList.Add(collider.transform);
+			
+			if(mEnemyList.Count == 1)
+			{
+				SetNextTarget();
+				StartAttack();
+			}
 		}
 	}
 	
@@ -77,7 +92,10 @@ public class Tower : MonoBehaviour
 	
 	public void TriggerExit(Collider collider)
 	{
-		ChangeTarget(collider);
+		if(!isGameEnd)
+		{
+			ChangeTarget(collider);
+		}
 	}
 
 
@@ -148,9 +166,26 @@ public class Tower : MonoBehaviour
 
 
 
+	private void GameInit()
+	{
+		GameObject.Destroy(gameObject);
+	}
+
+
+
+	private void GameEnd()
+	{
+		isGameEnd = true;
+		StopAttack();
+	}
+
+
+
 	public GameObject ShootObject = null;
 
 	public float ShootDelay = 0.0f;
+
+	private bool isGameEnd = false;
 
 	private Transform mUsedTile = null;
 
