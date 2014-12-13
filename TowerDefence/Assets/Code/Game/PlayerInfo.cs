@@ -49,8 +49,13 @@ public class PlayerInfo : MonoBehaviour
 	public void SubtractionLife(int SubValue)
 	{
 		_mLife -= SubValue;
+	}
 
-		if(_mLife < 0) G.i.StageM.GameOver();
+
+
+	public int GetCurrnetLife()
+	{
+		return _mLife;
 	}
 
 
