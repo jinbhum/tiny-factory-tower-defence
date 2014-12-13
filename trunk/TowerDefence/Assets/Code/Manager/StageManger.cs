@@ -9,14 +9,29 @@ public class StageManger : MonoBehaviour
 	{
 		G.i.StageM = GetComponent<StageManger>();
 		G.i.StageSetting();
+
         AddGameOverEvent(StopCreateMonster);
+		AddGameInitEvent(Init);
 	}
 
 
 	void OnDestroy()
 	{
 		G.i.StageM = null;
+
+		RemoveGameInitEvent(Init);
 	}
+
+
+
+	private void Init()
+	{
+		KillCount = 0;
+		ArriveCount = 0;
+
+		mUsedTileMap.Clear();
+	}
+
 
 
 	public void AddGameClearEvent(VoidFuntion ev){	evGameClear += ev;	}
@@ -27,7 +42,7 @@ public class StageManger : MonoBehaviour
 
 	public void AddGameInitEvent(VoidFuntion ev){	evGameInit += ev;	}
 	public void RemoveGameInitEvent(VoidFuntion ev){	evGameInit -= ev;	}
-
+	
 
 
 	public void GameInit()
@@ -53,6 +68,41 @@ public class StageManger : MonoBehaviour
 
 	}
 
+
+
+	public void AddKillCount()
+	{
+		KillCount++;
+		CheckGameOver();
+	}
+
+
+
+	public void AddArriveCount()
+	{
+		ArriveCount++;
+		CheckGameOver();
+	}
+
+
+
+	public void CheckGameOver()
+	{
+		if(G.i.PInfo.GetCurrnetLife() < 0)
+		{
+			GameOver();
+		}
+		else
+		{
+			if(KillCount + ArriveCount > MonsterCount)
+			{
+				GameClear();
+			}
+		}
+	}
+
+
+
 	public void CreateTower(GameObject tower)
 	{
 		if(tower != null)
@@ -60,6 +110,8 @@ public class StageManger : MonoBehaviour
 			StartCoroutine(IECreateTower(tower));
 		}
 	}
+
+
 
 	private IEnumerator IECreateTower(GameObject tower)
 	{
@@ -148,6 +200,9 @@ public class StageManger : MonoBehaviour
     public GameObject MonsterObj = null;
     public Transform MonsterPos;
     public int MonsterCount;
+
+	private int KillCount = 0;
+	private int ArriveCount = 0;
 
     private Vector3 MonsterstartPos;
 

@@ -26,6 +26,7 @@ public class Monster : MonoBehaviour {
 
         if (MonsterHP <= 0)
         {
+			G.i.StageM.AddKillCount();
             obj.transform.parent.SendMessage("ChangeTarget", GetComponent<CapsuleCollider>(), SendMessageOptions.DontRequireReceiver );
             Destroy(this.gameObject);
         }
@@ -34,6 +35,7 @@ public class Monster : MonoBehaviour {
     public void MonsterEnd()
     {
         G.i.PInfo.SubtractionLife(100);
+		G.i.StageM.AddArriveCount();
         G.i.StageM.RemoveGameOverEvent(MonsterStop);
         Destroy(this.gameObject);
     }

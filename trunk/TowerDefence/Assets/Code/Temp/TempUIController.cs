@@ -15,7 +15,7 @@ public class TempUIController : MonoBehaviour
 		if(G.i.StageM != null)
 		{
 			G.i.StageM.RemoveGameClaerEvent(SetGameClearUI);
-			G.i.StageM.RemoveGameOverEvent(SetGameClearUI);
+			G.i.StageM.RemoveGameOverEvent(SetGameOverUI);
 		}
 	}
 
@@ -25,7 +25,7 @@ public class TempUIController : MonoBehaviour
 	{
 		if(G.i.StageM != null)
 		{
-			G.i.StageM.AddGameClearEvent(SetGameOverUI);
+			G.i.StageM.AddGameClearEvent(SetGameClearUI);
 			G.i.StageM.AddGameOverEvent(SetGameOverUI);
 		}
 	}
