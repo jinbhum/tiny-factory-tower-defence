@@ -28,6 +28,7 @@ public class Monster : MonoBehaviour {
         {
 			G.i.StageM.AddKillCount();
             obj.transform.parent.SendMessage("ChangeTarget", GetComponent<CapsuleCollider>(), SendMessageOptions.DontRequireReceiver );
+            G.i.StageM.RemoveGameOverEvent(MonsterStop);
             Destroy(this.gameObject);
         }
     }
