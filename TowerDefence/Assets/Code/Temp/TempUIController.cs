@@ -164,7 +164,6 @@ public class TempUIController : MonoBehaviour
 
 	private void GameContinue()
 	{
-		G.i.StageM.GameInit();
 		GameStart();
 	}
 

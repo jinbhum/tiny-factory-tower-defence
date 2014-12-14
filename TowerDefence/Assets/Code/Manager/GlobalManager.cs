@@ -3,13 +3,6 @@ using System.Collections;
 
 public class GlobalManager : MonoBehaviour 
 {
-	public PlayerInfo PInfo
-	{
-		set { _mPlayerInfo = value; }
-		get { return _mPlayerInfo; }
-	}
-
-	
 	public StageManger StageM
 	{
 		set { _mStageM = value; }
@@ -17,8 +10,35 @@ public class GlobalManager : MonoBehaviour
 	}
 
 
-	private PlayerInfo _mPlayerInfo = null;
+
+	public ResourcesManager ResourceM
+	{
+		set { _mResourceM = value; }
+		get { return _mResourceM; }
+	}
+
+
+
+	public PlayerInfo PInfo
+	{
+		set { _mPlayerInfo = value; }
+		get { return _mPlayerInfo; }
+	}
+
+
+
+	public MapLoader MapL
+	{
+		set { _mMapLoader = value; }
+		get { return _mMapLoader; }
+	}
+
+
 	private StageManger _mStageM = null;
+	private ResourcesManager _mResourceM = null;
+
+	private PlayerInfo _mPlayerInfo = null;
+	private MapLoader _mMapLoader = null;
 	private InputController _mIController = null;
 
 
