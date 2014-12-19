@@ -157,7 +157,8 @@ public class TempUIController : MonoBehaviour
     {
 		curState = ButtonState.GAME;
 		G.i.StageM.GameInit();
-        G.i.StageM.CreateMonster(Monster);
+		G.i.StageM.CreateMonster();
+//        G.i.StageM.CreateMonster(Monster);
     }
 
 
@@ -210,23 +211,23 @@ public class TempUIController : MonoBehaviour
 
 
 
-    private void StartButton(string name)
-    {
-        if (GUILayout.Button(name))
-        {
-            Debug.Log("Hello ~ !");
-            G.i.StageM.CreateMonster(Monster);
-
-			curState = ButtonState.GAME;
-        }
-    }
+//    private void StartButton(string name)
+//    {
+//        if (GUILayout.Button(name))
+//        {
+//            Debug.Log("Hello ~ !");
+//            G.i.StageM.CreateMonster(Monster);
+//
+//			curState = ButtonState.GAME;
+//        }
+//    }
 
 
 
 	public delegate void CreteFunction(GameObject Target);
     public delegate void VoidFuntion();
 
-    public GameObject Monster = null;
+//    public GameObject Monster = null;
 	public GameObject Tower_1 = null;
 
 	private ButtonState curState = ButtonState.READY;
