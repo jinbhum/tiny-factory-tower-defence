@@ -28,6 +28,7 @@ public class StageManger : MonoBehaviour
 	{
 		KillCount = 0;
 		ArriveCount = 0;
+		MonsterCount = 0;
 
 		mUsedTileMap.Clear();
 	}
@@ -94,7 +95,7 @@ public class StageManger : MonoBehaviour
 		}
 		else
 		{
-			if(KillCount + ArriveCount > MonsterCount)
+			if(KillCount + ArriveCount >= MonsterCount)
 			{
 				GameClear();
 			}
@@ -162,13 +163,14 @@ public class StageManger : MonoBehaviour
 	}
 
 
-    public void CreateMonster(GameObject monster)
+
+    public void CreateMonster()
     {
-        if (monster != null)
-        {
-            StartCoroutine("IECreateMonster", monster);
-        }
+		SetMonsterCount();
+		StartCoroutine("IECreateMonster");
     }
+
+
 
     public void StopCreateMonster()
     {
@@ -176,45 +178,87 @@ public class StageManger : MonoBehaviour
     }
 
 
-    private IEnumerator IECreateMonster(GameObject monster)
-    {
-        MonsterPos = monster.transform;
-        MonsterstartPos = new Vector3(-60, 0, 35);
 
-        for (int i = 0; i <= MonsterCount; i++)
-        {
-            GameObject obj;
-            obj = Instantiate(monster, MonsterstartPos, Quaternion.identity) as GameObject;
-            obj.SetActive(true);
-            monsterList.Add(obj);
-            yield return new WaitForSeconds(2.0f);
-        }
+    private IEnumerator IECreateMonster()
+    {
+		foreach(MonsterPattenrItem item in MonsterPetternList)
+		{
+			if(item.MonsterObj != null)
+			{
+				for(int count = 0; count < item.SlotCount; count++)
+				{
+					GameObject Monster = GameObject.Instantiate(item.MonsterObj, StartPosition.position, Quaternion.identity) as GameObject;
+		
+					iTweenEvent tweenEvent = Monster.AddComponent<iTweenEvent>();
+					tweenEvent.Values = MonsterPathEvent.Values;
+
+					yield return new WaitForSeconds(MonsterCreateGap);
+				}
+			}
+		}
+
+
+//        MonsterPos = monster.transform;
+//        MonsterstartPos = new Vector3(-60, 0, 35);
+//
+//        for (int i = 0; i <= MonsterCount; i++)
+//        {
+//            GameObject obj;
+//            obj = Instantiate(monster, MonsterstartPos, Quaternion.identity) as GameObject;
+//            obj.SetActive(true);
+//            monsterList.Add(obj);
+//            yield return new WaitForSeconds(2.0f);
+//        }
+
+
+//		yield return new WaitForSeconds(MonsterCreateGap);
     }
+
+
+
+	private void SetMonsterCount()
+	{
+		foreach(MonsterPattenrItem item in MonsterPetternList)
+		{
+			if(item.MonsterObj != null)
+			{
+				MonsterCount += item.SlotCount;
+			}
+		}
+	}
+
 
 
     public Transform CurTarget = null;
 	public Transform TowerParent = null;
+	public Transform StartPosition = null;
+
+	public float MonsterCreateGap = 0.0f;
 
 	public BlockState BlockState = null;
+	public iTweenEvent MonsterPathEvent = null;
 
-    public GameObject MonsterObj = null;
-    public Transform MonsterPos;
-    public int MonsterCount;
+	public List<MonsterPattenrItem> MonsterPetternList = new List<MonsterPattenrItem>();
 
 	private int KillCount = 0;
 	private int ArriveCount = 0;
-
-    private Vector3 MonsterstartPos;
+	private int MonsterCount = 0;
 
 	private Dictionary<string, Transform> mUsedTileMap = new Dictionary<string, Transform>();
-
-    public List<GameObject> monsterList = new List<GameObject>();
-
 
 	// event
 	public delegate void VoidFuntion();
 	public event VoidFuntion evGameClear;
 	public event VoidFuntion evGameOver;
 	public event VoidFuntion evGameInit;
+
+
+	// struct
+	[System.Serializable]
+	public struct MonsterPattenrItem
+	{
+		public GameObject MonsterObj;
+		public int SlotCount;
+	}
 }
 
